@@ -16,7 +16,7 @@ app.directive('myDir', function() {
      2. true             继承父级，并且可以有自己的作用域。
      3. {}为对象；  表示要创建一个独立的作用域，不会继承父级。
      */
-    scope: {},
+    scope: true,
     template: function() {
       return angular.element(document.querySelector('#scopeTemplate')).html();
     }
@@ -46,7 +46,7 @@ app.controller('myctr', function($scope) {
 </script>
 </head>
 <body ng-app="myapp" ng-controller="myctr">
-<!-- 什么都不会显示，因为不继承 -->
+<my-dir></my-dir>
 <my-dir></my-dir>
 </body>
 </html>
