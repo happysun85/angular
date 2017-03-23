@@ -20,10 +20,10 @@ app.directive('myDir', function() {
      分别是 ‘=’、 ‘@’、 ‘&’， 他们的作用分别是：
      @： 通过属性值进行绑定，但是单向的，即外界控制器可以把值传进来供内部使用，
      但内部对这个属性值进行修改时不会影响到外部的；
-
+     =：效果是双向绑定
      */
     scope: {
-      local: '@localname'   //不允许大写。。。
+      local: '=localname'   //不允许大写。。。
     },
     template: function() {
       return angular.element(document.querySelector('#scopeTemplate')).html();
@@ -42,10 +42,8 @@ app.controller('myctr', function($scope) {
 
 <script type="text/ng-template" id="scopeTemplate">
 <div class="panel-body">
-  <!-- data.name放了没用，因为这个作用域不继承父级 -->
-  {{data.name}}<br>
-
-  {{local}}
+  父级的{{data.name}}<br>
+  自定义的：{{local}}
   <p>Name: <input ng-model="local"/></p>
   <p>City: <input ng-model="city"/></p>
   <p>Country: <input ng-model="country"/></p>
@@ -54,10 +52,9 @@ app.controller('myctr', function($scope) {
 </head>
 <body ng-app="myapp" ng-controller="myctr">
 <!--
-  这里做了修改是改controller里的。所以下面也会生效，向下继承。但是下面修改不会改变这里的。
-  @效果是单向的
+  =号是双向绑定的
 -->
 <input type="text" ng-model="data.name">
-<my-dir localname="{{data.name}}"></my-dir>
+<my-dir localname="data.name"></my-dir>
 </body>
 </html>
