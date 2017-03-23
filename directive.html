@@ -53,6 +53,7 @@ app.controller('myctr', function($scope) {
 <body ng-app="myapp" ng-controller="myctr">
 <!--
   =号是双向绑定的
+  不同@符号的一个细节。 赋值的时候不能带{{}}
 -->
 <input type="text" ng-model="data.name">
 <my-dir localname="data.name"></my-dir>
