@@ -21,9 +21,11 @@ app.directive('myDir', function() {
      @： 通过属性值进行绑定，但是单向的，即外界控制器可以把值传进来供内部使用，
      但内部对这个属性值进行修改时不会影响到外部的；
      =：效果是双向绑定
+     &：调用父级的方法
      */
     scope: {
-      local: '=localname'   //不允许大写。。。
+      local: '=localname',   //不允许大写。。。
+      fun: '&parentfunc'
     },
     template: function() {
       return angular.element(document.querySelector('#scopeTemplate')).html();
@@ -34,28 +36,23 @@ app.directive('myDir', function() {
 app.controller('myctr', function($scope) {
   $scope.data = {name: 'sunheng'};
   $scope.city = 'china';
-  $scope.func = function() {
-    alert('ok');
+  $scope.func = function(name) {
+    return name + ' from ' + $scope.city;
   }
 })
 </script>
 
 <script type="text/ng-template" id="scopeTemplate">
 <div class="panel-body">
-  父级的{{data.name}}<br>
-  自定义的：{{local}}
-  <p>Name: <input ng-model="local"/></p>
-  <p>City: <input ng-model="city"/></p>
-  <p>Country: <input ng-model="country"/></p>
+  <!--
+   这种调用父级函数，貌似都要预设好，这边直接调用。不能在这加参数
+   -->
+  {{fun()}}<br>
+  {{local}}
 </div>
 </script>
 </head>
 <body ng-app="myapp" ng-controller="myctr">
-<!--
-  =号是双向绑定的
-  不同@符号的一个细节。 赋值的时候不能带{{}}
--->
-<input type="text" ng-model="data.name">
-<my-dir localname="data.name"></my-dir>
+<my-dir parentfunc="func(data.name)" localname="data.name"></my-dir>
 </body>
 </html>
