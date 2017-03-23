@@ -15,8 +15,16 @@ app.directive('myDir', function() {
      1. 不填默认为false   作用域在父级里，也就是可以用父级里的东西
      2. true             继承父级，并且可以有自己的作用域。
      3. {}为对象；  表示要创建一个独立的作用域，不会继承父级。
+     4. 第四种是第三种方式的强化，即虽然我的作用域与外界隔离了，
+     但有一些参数（数值，属性，方法）还是想从外界获得。那么该如何获得呢，
+     分别是 ‘=’、 ‘@’、 ‘&’， 他们的作用分别是：
+     @： 通过属性值进行绑定，但是单向的，即外界控制器可以把值传进来供内部使用，
+     但内部对这个属性值进行修改时不会影响到外部的；
+
      */
-    scope: {},
+    scope: {
+      local: '@localname'   //不允许大写。。。
+    },
     template: function() {
       return angular.element(document.querySelector('#scopeTemplate')).html();
     }
@@ -34,15 +42,22 @@ app.controller('myctr', function($scope) {
 
 <script type="text/ng-template" id="scopeTemplate">
 <div class="panel-body">
+  <!-- data.name放了没用，因为这个作用域不继承父级 -->
   {{data.name}}<br>
-  <p>Name: <input ng-model="data.name"/></p>
+
+  {{local}}
+  <p>Name: <input ng-model="local"/></p>
   <p>City: <input ng-model="city"/></p>
   <p>Country: <input ng-model="country"/></p>
 </div>
 </script>
 </head>
 <body ng-app="myapp" ng-controller="myctr">
-<!-- 什么都不会显示，因为不继承 -->
-<my-dir></my-dir>
+<!--
+  这里做了修改是改controller里的。所以下面也会生效，向下继承。但是下面修改不会改变这里的。
+  @效果是单向的
+-->
+<input type="text" ng-model="data.name">
+<my-dir localname="{{data.name}}"></my-dir>
 </body>
 </html>
