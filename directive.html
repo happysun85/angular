@@ -23,10 +23,6 @@ app.directive('myDir', function() {
   }
 });
 
-/*
-* 两个地方使用同样的模板，但是却有效果上的差异
-* data.name通用，cicy和country不通用。感觉就是因为data是引用类型，另外两个不是造成的。。
-* */
 app.controller('myctr', function($scope) {
   $scope.data = {name: 'sunheng'};
   $scope.city = 'china';
