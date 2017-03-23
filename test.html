@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+<script src="angular.js"></script>
+<script>
+var app = angular.module('myapp', []);
+app.filter('myfilter', function() {
+  return function(obj) {
+    return obj.name
+  }
+})
+app.controller('myctr', function($scope) {
+  $scope.list = [
+    {name: 'sunheng', age: '31'}
+  ]
+})
+
+
+</script>
+</head>
+<body ng-app="myapp" ng-controller="myctr">
+<div ng-repeat="item in list | myfilter ">
+  {{item.name}}
+</div>
+</body>
+</html>
