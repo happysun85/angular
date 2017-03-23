@@ -56,6 +56,7 @@ app.controller('myctr', function($scope) {
 <!--
   这里做了修改是改controller里的。所以下面也会生效，向下继承。但是下面修改不会改变这里的。
   @效果是单向的
+  @符号向下继承的时候 必须带上{{}}
 -->
 <input type="text" ng-model="data.name">
 <my-dir localname="{{data.name}}"></my-dir>
