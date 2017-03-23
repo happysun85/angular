@@ -12,21 +12,41 @@ app.directive('myDir', function() {
     restrict: 'AE',
     /*
      scope默认有一下3中方式
-     1. 不填，默认为false   作用域在父级里，也就是可以用父级里的东西
-     2. true
+     1. 不填默认为false   作用域在父级里，也就是可以用父级里的东西
+     2. true             继承父级，并且可以有自己的作用域。
      3. {} 对象
      */
+    scope: true,
     template: function() {
-      return '<span>我是一个自定义指令,我父级在跟你说：<strong>{{hi}}</strong></span>'
+      return angular.element(document.querySelector('#scopeTemplate')).html();
     }
   }
-})
+});
+
+/*
+* 两个地方使用同样的模板，但是却有效果上的差异
+* data.name通用，cicy和country不通用。感觉就是因为data是引用类型，另外两个不是造成的。。
+* */
 app.controller('myctr', function($scope) {
-  $scope.hi = '你好啊';
+  $scope.data = {name: 'sunheng'};
+  $scope.city = 'china';
+  $scope.func = function() {
+    alert('ok');
+  }
 })
+</script>
+
+<script type="text/ng-template" id="scopeTemplate">
+<div class="panel-body">
+  {{data.name}}<br>
+  <p>Name: <input ng-model="data.name"/></p>
+  <p>City: <input ng-model="city"/></p>
+  <p>Country: <input ng-model="country"/></p>
+</div>
 </script>
 </head>
 <body ng-app="myapp" ng-controller="myctr">
+<my-dir></my-dir>
 <my-dir></my-dir>
 </body>
 </html>
