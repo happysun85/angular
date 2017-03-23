@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+<script src="angular.js"></script>
+<script>
+var app = angular.module('myapp', []);
+app.directive('myDir', function() {
+  return {
+    //模板以哪种方式替换到指定位置  默认值 AE   A:属性； C:class； M:注释； E：元素
+    restrict: 'AE',
+    /*
+     scope默认有一下3中方式
+     1. 不填，默认为false   作用域在父级里，也就是可以用父级里的东西
+     2. true
+     3. {} 对象
+     */
+    template: function() {
+      return '<span>我是一个自定义指令,我父级在跟你说：<strong>{{hi}}</strong></span>'
+    }
+  }
+})
+app.controller('myctr', function($scope) {
+  $scope.hi = '你好啊';
+})
+</script>
+</head>
+<body ng-app="myapp" ng-controller="myctr">
+<my-dir></my-dir>
+</body>
+</html>
