@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <title>Title</title>
 <style>
-#view{
+#view {
   position: fixed;
-  top:0;
+  top: 0;
   left: 0;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   background: #ffffff;
 }
 </style>
@@ -22,7 +22,14 @@ app.config(['$routeProvider', function($routeProvider) {
   route.when('/list/detail/:id', {
     controller: 'detailController',
     templateUrl: 'detail.html'
-  });
+    /*template: string,                     //在 ng-view 中插入简单的 HTML 内容
+     templateUrl: string,                   //插入 HTML 模板文件
+     controller: string, function 或 array  //在当前模板上执行的controller函数，生成新的scope
+     controllerAs: string,                  //控制器别名，TODO干什么用的？？？
+     redirectTo: string, function,          //重定向的地址。
+     resolve: object < key, function >*/    //指定当前controller所依赖的其他模块。
+  })
+  ;
   route.otherwise({
     redirectTo: '/'
   })
