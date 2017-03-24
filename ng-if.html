@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+<style>
+div {
+  width: 160px;
+  height: 160px;
+  background: #b36ae2;
+}
+/*
+第一种方式： 使用class来制作动画
+*/
+
+.fade {
+  transition: 1s linear all;
+}
+/*
+这种方式有BUG啊。。多次点击会重复出现
+*/
+.fade.ng-enter {transform: rotate(0deg) }
+.fade.ng-enter.ng-enter-active { transform: rotate(320deg) }
+.fade.ng-leave { transform: rotate(320deg) }
+.fade.ng-leave.ng-leave-active { transform: rotate(0deg) }
+
+/**
+.ng-show & .ng-hide 控制元素隐藏和显示，不销毁
+专属class    ngHide ngShow
+hide时
+.ng-hide-add -> .ng-hide-add-active -> ng-hide(Directive Hide)
+show时
+.ng-hide-remove -> .ng-hide-remove-active -> ngshow(Directive show)
+注意坑，效果有时候不显示： .ng-hide-add 和 .ng-hide-remove 增加{display:block;!important}
+
+
+效果有 ng-if ngview nginclude ngRepeat ngSwitch 控制元素的销毁和创建
+根据复杂效果ngRepeat 还支持 .ng-move (.ng-move-acitve)
+在.ng-enter-stagger中使用 transition-delay&transition-duration控制延迟
+
+具体视频解说地址：http://www.imooc.com/video/3964
+ */
+</style>
+<script src="angular.js"></script>
+<script src="angular-animate.js"></script>
+<script>
+var app = angular.module('myapp', ['ngAnimate']);
+
+app.controller('myctl', function($scope) {
+
+})
+</script>
+</head>
+<body ng-app="myapp" ng-controller="myctl">
+<div ng-if="show" class="fade"></div>
+<button ng-click="show=!show">Toggle</button>
+</body>
+</html>

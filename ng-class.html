@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ngclass</title>
+<style>
+.bgChange {
+  background: red;
+}
+.bgBlue {
+  background: blue;
+}
+.base-class {
+  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+.base-class.my-class {
+  color: red;
+  font-size: 3em;
+}
+</style>
+<script src="angular.js"></script>
+<script src="angular-animate.js"></script>
+<script>
+
+
+var app = angular.module('myapp', ['ngAnimate']);
+
+app.controller('myctl', function($scope) {
+  $scope.list = [1, 2, 3]
+})
+
+/**
+ * ngClass例子
+ * ng-class="<这里放表达式，键值对{样式表class : true or false变量}>"
+ *
+ */
+</script>
+</head>
+
+<body ng-app="myapp" ng-controller="myctl">
+
+
+<!-- 添加样式的方式动画 -->
+<!--看着就是通过点击 然后给myVar变量赋值一个class名字 最后给ng-class完成效果-->
+<input id="setbtn" type="button" value="set" ng-click="myVar='my-class'">
+<input id="clearbtn" type="button" value="clear" ng-click="myVar=''">
+<br>
+<span class="base-class" ng-class="myVar">Sample Text</span>
+
+
+
+
+
+<!-- 遍历 ng-class-event -->
+<ul>
+  <!-- 注意双引号套单引号 -->
+  <li ng-class-odd="'bgChange'" ng-class-even="'bgBlue'" ng-repeat="item in list">{{item}}</li>
+</ul>
+</body>
+</html>
