@@ -29,6 +29,14 @@ app.directive('myDir', function() {
     },
     template: function() {
       return angular.element(document.querySelector('#scopeTemplate')).html();
+    },
+    link: function(scope, ele, attrs) {
+      //这里应该就是默认读进来后要做的一些操作而已
+
+      ele[0].addEventListener('click',function(){
+        alert('哎哟，成功了');
+      })
+      console.log('上来就会走？')
     }
   }
 });
