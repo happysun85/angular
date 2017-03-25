@@ -29,10 +29,22 @@ angular.element(
 </head>
 <body ng-app="formExample">
 <script>
-angular.module('formExample', [])
+angular.module('formExample', ['ngAnimate'])
     .controller('FormController', ['$scope', function($scope) {
       $scope.userType = 'guest';
-    }]);
+    }])
+    .animation('.my-form', function() {
+      return {
+        beforeAddClass: function(element, className, done) {
+          console.log('beforeAddClass');
+          done();
+        },
+        removeClass: function(ele, className, done) {
+          console.log('removeClass');
+          done();
+        }
+      }
+    });
 </script>
 <form name="myForm" ng-controller="FormController" class="my-form">
   userType: <input name="input" ng-model="userType" required>
