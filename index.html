@@ -12,25 +12,17 @@
   angular.module('docsTransclusionExample', [])
       .controller('Controller', ['$scope', function($scope) {
         $scope.name = 'Tobias';
+        $scope.$watch('name', function(newValue, oldValue) {
+          alert(newValue + '---' + oldValue)
+        })
       }])
-      .directive('myDialog', function() {
-        return {
-          restrict: 'E',
-          transclude: true,
-          scope: {},
-          templateUrl: 'my-dialog.html',
-          link: function(scope) {
-            scope.name = 'Jeff';
-          }
-        };
-      });
 })(window.angular);
 </script>
 
 </head>
 <body ng-app="docsTransclusionExample">
 <div ng-controller="Controller">
-  <my-dialog>Check out the contents, {{name}}!</my-dialog>
+  <input type="text" ng-model="name">
 </div>
 </body>
 </html>
